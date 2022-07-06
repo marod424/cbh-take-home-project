@@ -17,16 +17,19 @@ You will be graded on the level of detail in each ticket, the clarity of the exe
 
 ## Your Breakdown Here
 
-Dev code complete of tickets assumes completed functionality of acceptance criteria, new unit tests written for new functionality, and all existing tests still pass.
+Dev code complete of tickets assumes:
+1. Completed functionality of acceptance criteria
+2. New unit tests written for new functionality 
+3. All existing tests still pass.
 
 ***
-### Ticket 1: (Data) Facitlites to save custom Agent Ids
+### Ticket 1: (Data) Facilities to save custom Agent Ids
 
 **User Story**: As a Facility admin I would like to save a custom id for an agent.  
 **Description**: DDL to allow Facilities to save their own custom ids for each Agent.  
 **Acceptance Criteria**:
   - DDL case to update Agents table schema
-    - New column `customAgentIdFacilityMap` to store JSON object
+    - New column `facilityCustomAgentIdMap` to store JSON object
       - Default null (implies no Facilities with custom ids)
       - string key of Facility id
       - string value of custom id
@@ -36,7 +39,7 @@ Dev code complete of tickets assumes completed functionality of acceptance crite
 
 ***
 
-### Ticket 2: (BE) Facitlites to save custom Agent Ids
+### Ticket 2: (BE) Facilities to save custom Agent Ids
 
 
 **User Story**: As a Facility admin I would like to save a custom id for an agent.  
@@ -45,7 +48,7 @@ Dev code complete of tickets assumes completed functionality of acceptance crite
   - New API endpoint to create/update custom Agent Id by Facility
     - Sanatize and validate posted data for min/max lengths and data types
     - Lookup Agent id by agent name/db id
-    - Get agents `customAgentIdFacilityMap` created in *Ticket 1*
+    - Get agents `facilityCustomAgentIdMap` created in *Ticket 1*
     - Store in DB
       - If null, create new JSON object with first key/value of facilityId/customAgentId
       - Create new record if facilityId key does not exist
@@ -79,13 +82,14 @@ Dev code complete of tickets assumes completed functionality of acceptance crite
 
 ### Ticket 4: (BE) Facilities to generate report with custom Agent Ids
 
-**User Story**: As a Facility admin I would like to generate a report with custom Agent ids
-**Description**: Back-end work to allow Facilities to save their own custom ids for each Agent.  
+**User Story**: As a Facility admin I would like to generate a report with custom Agent ids  
+**Description**: Update existing functions to allow Facilities to save their own custom ids for each Agent.  
 **Acceptance Criteria**:
-  - Look up if agent custom id exists in `customAgentIdFacilityMap` by facility id
-  - Update `getShiftsByFacility` function to include agent custom id (if exists)
-  - Update `generateReport` function to use agent custom id (if exists)  
+  - Create or reuse a function look up, by agent id, if an agent custom id exists in `facilityCustomAgentIdMap` for a given facility id 
+    - This should be the same lookup as done by the work in *Ticket 2* (could break out into 5th ticket if team decides it's worth working on in parallel)
+  - Update `getShiftsByFacility` function to include agent custom id (if exists; use new lookup)
+  - Update `generateReport` function to use agent custom id (if exists; use new lookup)  
 
-**LOE Estimate**: small (~1 hr)
+**LOE Estimate**: small (~3 hrs)
 
 ***
