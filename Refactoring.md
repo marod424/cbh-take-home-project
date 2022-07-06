@@ -9,3 +9,8 @@ You've been asked to refactor the function `deterministicPartitionKey` in [`dpk.
 You will be graded on the exhaustiveness and quality of your unit tests, the depth of your refactor, and the level of insight into your thought process provided by the written explanation.
 
 ## Your Explanation Here
+
+The main goal of the refactor was to make the code more readable.  
+This was accomplished by moving branch logic into two separate functions, particularly one to get the candidate from the event (`getCandidateFromEvent`) and one to handle the candidate length (`handleCandidateLength`).  
+Both functions are pure functions, in that they do not create side effects and return values.  
+I used the nullish coalescing operator and the ternary operator to also make the logic more concise.
